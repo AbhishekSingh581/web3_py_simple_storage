@@ -1,4 +1,5 @@
 
+from dataclasses import replace
 from numpy import sign
 from solcx import compile_standard, install_solc
 
@@ -6,6 +7,7 @@ import json
 
 from web3 import Web3
 from dotenv import load_dotenv
+import web3
 load_dotenv()
 
 import os
@@ -42,11 +44,16 @@ bytecode =compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["evm"]
 # get abi
 abi=compiled_sol["contracts"]["SimpleStorage.sol"]["SimpleStorage"]["abi"]
 
-w3=Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
-chain_id=1337
-my_address="0xb94c1FBb6471ffBEA4B60F1960845DC889844632"
+w3=Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))  
+# if you want to deploy it in mainnet or testnet use alchemy or infura for that 
+# just replace url with above url . Below is an example
+# w3=Web3(Web3.HTTPProvider("https://rinkeby.infura.io/v3/239e939061dd42309f71a004a59c6841")) 
+
+chain_id=1337                # for rinkeyby chain id=4 
+
+my_address="0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"           #for using mainnet use metamask address
 # private_key="0x135c3880f9fd9be89b6f195d32274ebaadc22b5f31538d03e74f4402bd2ec0f3"
-private_key=os.getenv("PRIVATE_KEY")
+private_key=os.getenv("PRIVATE_KEY")                              #for using mainnet use metamask private key
 # print(private_key)
 
 #Create the contract in python
